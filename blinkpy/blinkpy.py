@@ -21,6 +21,7 @@ import aiofiles.ospath
 from requests.structures import CaseInsensitiveDict
 from dateutil.parser import parse
 from slugify import slugify
+import pytz
 
 from blinkpy import api
 from blinkpy.sync_module import BlinkSyncModule, BlinkOwl, BlinkLotus
@@ -458,8 +459,10 @@ class Blink:
                 _LOGGER.debug("%s: %s is marked as deleted.", camera_name, address)
                 continue
 
-            filename = f"{camera_name}-{created_at}"
-            filename = f"{slugify(filename)}.mp4"
+            # not a fan of the slugify filename format!
+            created_at = f"{datetime.datetime.fromisoformat(created_at).astimezone(pytz.timezone('US/Eastern')):%Y%m%d_%H%M%S}"
+            camera_name = camera_name.replace(' ', '')
+            filename = f"{created_at}_{camera_name}.mp4"
             filename = os.path.join(path, filename)
 
             if not debug:

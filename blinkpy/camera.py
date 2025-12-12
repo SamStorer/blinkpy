@@ -279,6 +279,9 @@ class BlinkCamera:
         )
         try:
             self.temperature_calibrated = resp["temp"]
+            import pytz
+            dt = datetime.datetime.fromisoformat(resp['updated_at']).astimezone(pytz.timezone('US/Eastern'))
+            logging.info(f"{self.name:<11}: {dt} | {resp['temp']}")
         except (TypeError, KeyError):
             self.temperature_calibrated = self.temperature
             _LOGGER.warning(
