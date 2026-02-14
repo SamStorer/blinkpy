@@ -467,7 +467,7 @@ class Blink:
 
             if not debug:
                 if await aiofiles.ospath.isfile(filename):
-                    _LOGGER.info("%s already exists, skipping...", filename)
+                    # _LOGGER.info("%s already exists, skipping...", filename)
                     continue
 
                 response = await self.do_http_get(address)
