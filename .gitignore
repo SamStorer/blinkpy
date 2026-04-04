@@ -20,3 +20,5 @@ Pipfile.lock
 blink.json
 blinktest.py
 .vscode/*
+/.idea/
+
